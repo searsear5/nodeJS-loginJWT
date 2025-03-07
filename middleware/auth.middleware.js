@@ -5,18 +5,20 @@ exports.authmid = (req,res,next)=>{
     try {
         const token = req.header("x-auth-token")
         if (!token) {
-            return res.status(401).json({message:"no token authorization deny"})
+           return res.status(401).json({
+            message:"no token authorization"
+           })
         }
         const verifyToken = jwt.verify(token,"secret",(err,decode)=>{
             if (err) {
-                return res.status(401).json({message:"token invalid"})
+                return res.status(401).json({message:"token is invalid"})
             }else{
-                console.log('token',verifyToken)
+                console.log(decode)
                 req.user = decode
-                console.log(token)
-                next();
+                next()
             }
         })
+       
         
         
     } catch (err) {
