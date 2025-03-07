@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
 
 
-exports.auth = (req,res,next)=>{
+exports.authmid = (req,res,next)=>{
     try {
         const token = req.header("x-auth-token")
         if (!token) {
@@ -13,12 +13,14 @@ exports.auth = (req,res,next)=>{
             }else{
                 console.log('token',verifyToken)
                 req.user = decode
+                console.log(token)
+                next();
             }
         })
-        console.log(token)
-        next()
+        
+        
     } catch (err) {
-        res.status(500).json({message:"sever error"})
+        res.status(500).json({message:"sever error middleware"})
         
     }
 }
