@@ -5,6 +5,7 @@ const prisma = new PrismaClient()
 
 exports.list = async(req,res)=>{
     try {
+        console.log('req.user',req.user)
         const user = await prisma.user.findMany({})
         res.json(user)
     } catch (err) {
